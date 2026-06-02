@@ -194,7 +194,7 @@
 
 .about-hero {
             background: url('we.jpg') center/cover no-repeat;
-            height: 550px;
+            height: 540px;
             display: flex;
             align-items: center;
             text-align: center;
@@ -207,36 +207,72 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.5);
         }
+      
+
         .about-content {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 4rem auto;
             padding: 0 2rem;
         }
-        .story {
-            background: white;
-            border-radius: 12px;
-            padding: 3rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            margin-bottom: 4rem;
+
+        .story-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
         }
+
+        .story-text h2 {
+            font-size: 2.6rem;
+            color: #007BFF;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-text p {
+            font-size: 1.18rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
         .values {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
+
         .value-card {
             background: white;
-            padding: 2rem;
+            padding: 2.2rem 1.5rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             text-align: center;
+            transition: transform 0.3s;
         }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
         .value-card h3 {
             color: #007BFF;
             margin: 1rem 0;
         }
 
+        .mission {
+            background: linear-gradient(135deg, #007BFF, #215763);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 5rem 0;
+        }
+
+        .team-img {
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
         .catalog-hero {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('imgback.jpeg') center/cover no-repeat;
             height: 550px;
