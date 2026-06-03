@@ -426,3 +426,13 @@
             color: #212529;
         }
         
+        button.btn-small {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+button.btn-small:disabled {
+  background: #6c757d;
+  cursor: default;
+  transform: none;
+}

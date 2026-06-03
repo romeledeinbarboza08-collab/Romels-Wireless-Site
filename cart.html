@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Romel's Wireless</title>
     <link rel="stylesheet" href="styles.css">
-     <link rel="icon" type="image/png" href="iconlogo.png">
+    <link rel="icon" type="image/png" href="iconlogo.png">
 </head>
-<style> * { margin: 0; padding: 0; box-sizing: border-box; }
+<style> 
+.logo {
+        display: flex;
+        align-items: center;
+        }
+
+        .logo-img {
+        height: 80px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #F8F9FA;
@@ -38,8 +51,7 @@
             margin-left: 2rem;
             font-weight: 500;
         }
-
-        /* PAGE TITLE */
+    
         .page-header {
             background: linear-gradient(135deg, #007BFF, #0056cc);
             color: white;
@@ -136,6 +148,7 @@
             transition: all 0.2s;
             white-space: nowrap;
             text-decoration: none;
+            font-family: inherit;
         }
         .btn-remove:hover {
             border-color: #c0392b;
@@ -227,11 +240,11 @@
             transform: translateY(-2px);
         }
 
-        
         .cart-empty {
             text-align: center;
             padding: 4rem 2rem;
             color: #999;
+            display: none;
         }
         .cart-empty .empty-icon {
             font-size: 4rem;
@@ -253,18 +266,6 @@
             .cart-item img { width: 70px; height: 70px; }
             .cart-actions { flex-direction: column; }
         }
-
-         .logo {
-        display: flex;
-        align-items: center;
-        }
-
-        .logo-img {
-        height: 80px;
-        width: auto;
-        object-fit: contain;
-        display: block;
-        }
 </style>
 <body>
     <header>
@@ -285,61 +286,94 @@
     </header>
 
     <div class="page-header">
-        <h1> Mi Carrito</h1>
+        <h1>🛒 Mi Carrito</h1>
         <p>Revisa los productos que te interesan antes de consultar</p>
     </div>
 
     <div class="cart-container">
 
-        <p class="cart-label">Productos seleccionados (3)</p>
+        <!-- Mensaje carrito vacío -->
+        <div class="cart-empty" id="empty-state">
+            <div class="empty-icon">🛒</div>
+            <h2>Tu carrito está vacío</h2>
+            <p>Agrega productos desde el catálogo.</p>
+            <a href="clientes.html" class="btn-back">← Ver catálogo</a>
+        </div>
 
-        <!-- Item 1 — Available -->
-        <div class="cart-item">
-            <img src="iphone15.jpg" alt="iPhone 15">
-            <div class="item-details">
-                <h3>iPhone 15</h3>
-                <p>128GB · Rose Gold</p>
-                <span class="badge badge-available"> Disponible</span>
+        <!-- Contenido dinámico -->
+        <p class="cart-label" id="cart-label"></p>
+        <div id="items-list"></div>
+
+        <div class="cart-summary" id="cart-summary">
+            <h2>Resumen del pedido</h2>
+            <div id="summary-rows"></div>
+            <div class="summary-row total">
+                <span>Total estimado</span>
+                <span class="total-price" id="total-price"></span>
             </div>
-            <div class="item-price">₡289,000</div>
-            <a href="clientes.html" class="btn-remove">Quitar</a>
         </div>
 
-        
-        <div class="cart-item">
-            <img src="m2.jpg" alt="MacBook Air M2">
-            <div class="item-details">
-                <h3>MacBook Air M2</h3>
-                <p>256GB · Midnight</p>
-                <span class="badge badge-limited"> Últimas unidades</span>
-            </div>
-            <div class="item-price">₡589,000</div>
-            <a href="clientes.html" class="btn-remove">Quitar</a>
-        </div>
-
-        <!-- Item 3 — Unavailable -->
-        <div class="cart-item">
-            <img src="s26.jpg" alt="Samsung Galaxy S26 Ultra">
-            <div class="item-details">
-                <h3>Samsung Galaxy S26 Ultra</h3>
-                <p>128GB · White</p>
-                <span class="badge badge-unavailable">✕ No disponible</span>
-            </div>
-            <div class="item-price">₡265,000</div>
-            <a href="clientes.html" class="btn-remove">Quitar</a>
-        </div>
-
-    
-      
-        <div class="cart-note">
-            <strong>¿Cómo funciona?</strong> Este carrito es solo una lista de referencia.
-            Para confirmar disponibilidad y precio final, contáctanos directamente por
-            WhatsApp o a través del formulario de contacto. ¡Con gusto te atendemos!
-        </div>
-
-      
-        <div class="cart-actions">
-            <a href="contacto.html" class="btn-contact">Consultar por estos productos</a>
-            <a href="clientes.html" class="btn-back">← Seguir explorando</a>
-        </div>
+      s
     </div>
+
+    <footer>
+        <p>&copy; 2026 Romel's Wireless • All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function render() {
+            var cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            var emptyState  = document.getElementById('empty-state');
+            var cartLabel   = document.getElementById('cart-label');
+            var itemsList   = document.getElementById('items-list');
+            var summaryRows = document.getElementById('summary-rows');
+            var totalPrice  = document.getElementById('total-price');
+            var cartSummary = document.getElementById('cart-summary');
+
+            if (cart.length === 0) {
+                emptyState.style.display  = 'block';
+                cartLabel.style.display   = 'none';
+                cartSummary.style.display = 'none';
+                itemsList.innerHTML = '';
+                return;
+            }
+
+            emptyState.style.display  = 'none';
+            cartLabel.style.display   = 'block';
+            cartSummary.style.display = 'block';
+            cartLabel.textContent = 'Productos seleccionados (' + cart.length + ')';
+
+            itemsList.innerHTML = cart.map(function(item) {
+                return '<div class="cart-item" id="item-' + item.id + '">' +
+                    '<img src="' + item.img + '" alt="' + item.name + '">' +
+                    '<div class="item-details">' +
+                        '<h3>' + item.name + '</h3>' +
+                        '<p>' + item.desc + '</p>' +
+                    '</div>' +
+                    '<div class="item-price">' + item.price + '</div>' +
+                    '<button class="btn-remove" onclick="removeItem(\'' + item.id + '\')">Quitar</button>' +
+                '</div>';
+            }).join('');
+
+            summaryRows.innerHTML = cart.map(function(item) {
+                return '<div class="summary-row">' +
+                    '<span>' + item.name + '</span>' +
+                    '<span>' + item.price + '</span>' +
+                '</div>';
+            }).join('');
+
+            totalPrice.textContent = 'Consultar precios en tienda';
+        }
+
+        function removeItem(id) {
+            var cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart = cart.filter(function(i) { return i.id !== id; });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            render();
+        }
+
+        render();
+    </script>
+
+</body>
+</html>
