@@ -38,7 +38,6 @@
             font-size: 1.2rem;
         }
 
-       
         .carousel-wrapper {
             position: relative;
             width: 100%;
@@ -77,7 +76,6 @@
             z-index: 1;
         }
 
-
         .carousel-caption {
             position: absolute;
             inset: 0;
@@ -112,7 +110,6 @@
             z-index: 3;
         }
 
-    
         .carousel-arrows {
             position: absolute;
             inset: 0;
@@ -183,7 +180,6 @@
             transform: scale(1.35);
         }
 
-        
         .services { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
         .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; color: #212529; }
         .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
@@ -193,7 +189,6 @@
         .card-content { padding: 1.5rem; }
         .card h3 { margin: 0.8rem 0; color: #007BFF; }
 
-        /* Brands */
         .brands { background: linear-gradient(135deg, #f8f9fa, #e9f0ff); padding: 5rem 0; margin: 4rem 0; }
         .brands-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
         .brand-logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3.5rem; filter: grayscale(30%); transition: all 0.4s; }
@@ -209,21 +204,19 @@
             .carousel-caption h1 { font-size: 1.8rem; }
             .carousel-caption p  { font-size: 1rem; }
         }
-                   
+
         .logo {
-        display: flex;
-        align-items: center;
+            display: flex;
+            align-items: center;
         }
-
         .logo-img {
-        height: 80px;
-        width: auto;
-        object-fit: contain;
-        display: block;
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            display: block;
         }
-        
     </style>
-
+</head>
 <body>
     <header>
         <nav>
@@ -236,6 +229,7 @@
                 <a href="index.html">Home</a>
                 <a href="nosotros.html">Nosotros</a>
                 <a href="clientes.html">Catalago</a>
+                <a href="ofertas.html">Ofertas</a>
                 <a href="cart.html">Cart</a>
                 <a href="contacto.html">Contacto</a>
             </div>
@@ -291,6 +285,54 @@
         </div>
 
     </div>
+
+    <script>
+        // Lista de los 3 radio inputs en orden
+        var slides = [
+            document.getElementById('s1'),
+            document.getElementById('s2'),
+            document.getElementById('s3')
+        ];
+
+        var current = 0;      // indice de la slide activa (0, 1 o 2)
+        var interval = null;  // guarda el temporizador para poder pausarlo
+
+        // Activa la slide del indice dado
+        function goTo(index) {
+            slides[index].checked = true;
+            current = index;
+        }
+
+        // Avanza a la siguiente slide, vuelve a 0 cuando llega al final
+        function next() {
+            var nextIndex = (current + 1) % slides.length;
+            goTo(nextIndex);
+        }
+
+        // Arranca el auto-play: cada 4000ms (4 segundos) llama a next()
+        function startAuto() {
+            interval = setInterval(next, 2500);
+        }
+
+        // Detiene el auto-play cancelando el temporizador
+        function stopAuto() {
+            clearInterval(interval);
+        }
+
+        // Al hacer clic en cualquier flecha o punto, reinicia el temporizador
+        // para que no salte a los 4 segundos justo despues de que el usuario navego
+        document.querySelector('.carousel-arrows').addEventListener('click', function() {
+            stopAuto();
+            startAuto();
+        });
+        document.querySelector('.carousel-dots').addEventListener('click', function() {
+            stopAuto();
+            startAuto();
+        });
+
+        // Arranca automaticamente al cargar la pagina
+        startAuto();
+    </script>
 
 
 
