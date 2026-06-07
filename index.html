@@ -294,8 +294,8 @@
             document.getElementById('s3')
         ];
 
-        var current = 0;      // indice de la slide activa (0, 1 o 2)
-        var interval = null;  // guarda el temporizador para poder pausarlo
+        var current = 0;      
+        var interval = null;  
 
         // Activa la slide del indice dado
         function goTo(index) {
@@ -314,13 +314,12 @@
             interval = setInterval(next, 2500);
         }
 
-        // Detiene el auto-play cancelando el temporizador
+        
         function stopAuto() {
             clearInterval(interval);
         }
 
-        // Al hacer clic en cualquier flecha o punto, reinicia el temporizador
-        // para que no salte a los 4 segundos justo despues de que el usuario navego
+        
         document.querySelector('.carousel-arrows').addEventListener('click', function() {
             stopAuto();
             startAuto();
